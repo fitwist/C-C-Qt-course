@@ -1,3 +1,4 @@
+// Сделать цикл в цикле в цикле. For в while в do-while
 #include <stdio.h>
 
 int main() {
@@ -5,13 +6,13 @@ int main() {
     int j = 0;
     int k = 0;
     int sum = 0;
-    do {
+    do { // Создать цикл do while
         i++;
         printf("i is equal to %4d\n", i);
-        while (j<9) {
+        while (j<9) {  // Создать цикл while
             j++;
             printf("j is equal to %4d\n", j);
-            for (; sum<6; k++) {
+            for (; sum<6; k++) {  // Создать цикл for
                 sum += 1;
                 printf("k is equal to %4d\n", k);
             };

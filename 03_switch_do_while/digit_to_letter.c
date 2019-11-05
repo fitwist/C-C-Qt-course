@@ -1,10 +1,11 @@
+// Использовать ветвление switch-case. В switch передавать цифру, на выходе получать первую букву цифры.
 #include <stdio.h>
 
 int main() {
     int digit;
     printf("Введите цифру от 0 до 9:\n");
-    scanf("%d", &digit);
-    switch(digit) {
+    scanf("%d", &digit); // Получить входную цифру
+    switch(digit) { // "Конвертировать" цифру в соответствующую букву
         case 0: 
             printf("н\n");
             break;
