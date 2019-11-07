@@ -1,4 +1,3 @@
-// Сделать цикл в цикле в цикле. For в while в do-while
 #include <stdio.h>
 
 int main() {

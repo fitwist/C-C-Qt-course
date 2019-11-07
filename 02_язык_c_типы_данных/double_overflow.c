@@ -1,4 +1,3 @@
-// Дополнительно: переполнение по типу double.
 #include <stdio.h>
 #include <float.h>
 
