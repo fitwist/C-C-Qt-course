@@ -1,2 +1,5 @@
 # Visual Studio Code environment settings
 .vscode/
+
+# macOS Finder folder labels
+.DS_Store
