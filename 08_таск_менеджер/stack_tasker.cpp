@@ -18,44 +18,55 @@ void initstack() { // Инициализация стека
     top=-1;
 }
 
-static const char alphanum[] = // Набор символов для автогенерации задачи
+// Набор символов для автогенерации 
+static const char alphanum[] = 
     "0123456789"
     "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
     "abcdefghijklmnopqrstuvwxyz";
-int stringLength = sizeof(alphanum); // Случайная длина
 
-char genRandom() { // Генерация случайного символа – части имени
+// Случайная длина
+int stringLength = sizeof(alphanum); 
+
+// Генерация случайной части имени
+char genRandom() { 
     return alphanum[rand() % stringLength];
 }
 
-int isEmpty() { // Проверка опустошенности стека
+// Проверка опустошенности стека
+int isEmpty() { 
     if(top==-1)
         return 1;
     else
         return 0;
 }
 
-int isFull() { // Проверка наполненности стека
+// Проверка наполненности стека
+int isFull() { 
     if(top==MAX-1)
         return 1;
     else
         return 0;
 }
 
-void autoPush(string name, int time, int priority) {
-    if(isFull()) {
-        cout << "Стек полон" << endl;
-        return;
-    }
+void autoPush(
+    string name, 
+    int time, 
+    int priority) {
+        if(isFull()) {
+            cout << "Стек полон" << endl;
+            return;
+        }
     ++top;
     
     stack[top].name = name;
     stack[top].time = time;
     stack[top].priority = priority;
-    cout << "Задача \"" << name << "\" добавлена.\n" << endl;
+    cout << "Задача \"" << name << 
+    "\" добавлена.\n" << endl;
 }
 
-void peek() { // Отображение текущего состояния стека
+// Отображение текущего состояния стека
+void peek() { 
     int i;
     if(isEmpty()) {
         cout << "Стек пуст" << endl;
@@ -63,20 +74,27 @@ void peek() { // Отображение текущего состояния ст
     }
     
     for(i = top; i>=0; i--) {
-        cout << stack[i].name<< ", " << stack[i].time << ", " << stack[i].priority << endl;
+        cout << 
+        stack[i].name<< ", " << 
+        stack[i].time << ", " << 
+        stack[i].priority << endl;
     }
 }
 
-void push(string name, int time, int priority) {
-    if(isFull()) {
-        cout << "Стек полон" << endl;
-        return;
-    }
+void push(
+    string name, 
+    int time, 
+    int priority) {
+        if(isFull()) {
+            cout << "Стек полон" << endl;
+            return;
+        }
     ++top;
     stack[top].name = name;
     stack[top].time = time;
     stack[top].priority = priority;
-    cout << "Задача \"" << name << "\" добавлена.\n" << endl;
+    cout << "Задача \"" << name << 
+    "\" добавлена.\n" << endl;
 }
 
 void pop() { // Удаление задачи
@@ -87,10 +105,12 @@ void pop() { // Удаление задачи
     }
     
     temp = stack[top].name;
-    cout << "Ожидание удаления задачи..." << endl;
+    cout << "Ожидание удаления задачи..." 
+    << endl;
     sleep(stack[top].time);
     top--;
-    cout << "Задача \"" << temp << "\" удалена.\n" << endl;
+    cout << "Задача \"" << temp << 
+    "\" удалена.\n" << endl;
 }
 
 int main() {
@@ -102,39 +122,58 @@ int main() {
     int a;
     
     do {
-        cout << "1. Добавить\n" << "2. Удалить\n" << "3. Отобразить\n" << "4. Сгенерировать задачу\n" << "5. Выйти из программы.\n";
-        cout << "Введите цифру, соответствующую пункту меню: ";
+        cout << "1. Добавить\n" << 
+        "2. Удалить\n" << 
+        "3. Отобразить\n" << 
+        "4. Сгенерировать задачу\n" << 
+        "5. Выйти из программы.\n" << 
+        "Выберите действие: ";
         cin >> a;
         cout << endl;
         switch(a) {
             case 1:
                 cout << "\nВведите имя: ";
                 cin >> name;
-                cout << "Введите время выполнения (желательно от 1 до 5, Вам же ждать потом!): ";
+                cout << 
+                "Введите " << 
+                " время: ";  
                 cin >> time;
-                cout << "Введите приоритет (1 – низкий, 2 – нормальный, 3 – высокий): ";
+                cout << 
+                "приоритет от 1 до 3: ";
                 cin >> priority;
-                push(name, time, priority);
+                push(
+                    name, 
+                    time, 
+                    priority);
                 break;
             case 2:
                 pop();
                 break;
             case 3:
                 peek();
-                cout << "Текущих задач: " << top+1 << endl;
+                cout << "Текущих задач: " 
+                << top+1 << endl;
                 break;
             case 4:
-                for(unsigned int i = 0; i < 12; ++i) { // Генерация случайного имени средней длины
+                // Генерация имени
+                for(
+                    unsigned int i = 0; 
+                    i < 12; 
+                    ++i) { 
                     name += genRandom();
                 }
                 time = rand() % 10;
                 priority = rand() % 9;
-                autoPush(name, time, priority);
+                autoPush(
+                    name, 
+                    time, 
+                    priority);
                 break;
             default:
-                cout << "Введите цифру от 1 до 3\n";
+                cout << "Ваш выбор:\n";
         }
     } while (a != '5');
-    cout << "Выход из программы..." << endl;
+    cout << "Выход из программы..." << 
+    endl;
     return 0;
 }
