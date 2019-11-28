@@ -1,5 +1,8 @@
-# Visual Studio Code environment settings
+# IDEs, compilers settings
 .vscode/
+cmake-build-debug/
+CMakeLists.txt
 
 # macOS Finder folder labels
 .DS_Store
+
