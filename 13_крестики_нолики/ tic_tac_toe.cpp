@@ -23,10 +23,6 @@ std::string enterNumber = "аберите цифру от 1 до 9 (или 0, ч
 
 char player;
 
-void checkInequality(){
-
-}
-
 void printBoard() {
     std::cout << "\t     |     |     " << std::endl;
     std::cout << "\t  " << b[0] << "  |  " << b[1] << "  |  " << b[2] << std::endl;
@@ -88,6 +84,13 @@ void printDraw() {
     std::cout << "\nНичья! Зато с обидой бороться не надо" << std::endl;
 }
 
+void checkInequality(int chAuto, int ch) {
+    if(b[chAuto - 1] == (char)('0' + ch) && b[chAuto - 1] == (char)('0' + chAuto)){
+        b[chAuto - 1] = '0';
+    } else
+        checkInequality(chAuto, ch);
+}
+
 int main() {
     std::cout << "Добро пожаловать в Крестики-нолики! Выберите режим игры:" << std::endl;
 
@@ -127,7 +130,7 @@ int main() {
 
                             //  Ход NPC
                             chAuto = rand () % 9+1; // Генерация случайного хода NPC
-                            checkInequality(chAuto);
+                            checkInequality(chAuto, ch);
 
                         }
                         else {
