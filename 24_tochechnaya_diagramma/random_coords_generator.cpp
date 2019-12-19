@@ -1,10 +1,10 @@
-#include <iostream>
+#include <stdio.h>
 #include <fstream>
 
 int main() {
     double x, y;
     std::ofstream dataset;
-    dataset.open ("/Users/helenkapatsa/Repositories/cpp-junior-itmo/assignment-practice/24/random_plotting_data/random_plotting_data/dataset.csv");
+    dataset.open ("/home/helen/Документы/C-C-Qt-course/24_tochechnaya_diagramma/dataset.csv");
     
     for (int i = 0; i<1000; i++) {
         x = rand()% 99+1;

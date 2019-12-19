@@ -6,12 +6,9 @@
 #include <QtGui/QPainter>
 #include <QtCore/QtMath>
 #include <QFile>
-#include <QLabel>
 #include <QTextStream>
 #include <QPointF>
 #include "chartview.h"
-#include <QFile>
-#include <QTextStream>
 #include <QDebug>
 
 ChartView::ChartView(QWidget *parent) :
@@ -26,7 +23,7 @@ ChartView::ChartView(QWidget *parent) :
     QString data;
     QStringList coordinateList;
 
-    plot_data.setFileName("/Users/helenkapatsa/Repositories/cpp-junior-itmo/C-C-Qt-course/24_scatter_chart/dataset.csv");
+    plot_data.setFileName("/home/helen/Документы/C-C-Qt-course/24_tochechnaya_diagramma/dataset.csv");
     plot_data.open(QIODevice::ReadOnly | QIODevice::Text);
 
     QTextStream ts(&plot_data);
