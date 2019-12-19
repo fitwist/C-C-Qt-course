@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/&quot;/Users/helenkapatsa/Repositories/cpp-junior-itmo/assignment-practice/24/random_plotting_data/random_plotting_data">
+        <file>dataset.csv</file>
+    </qresource>
+</RCC>
