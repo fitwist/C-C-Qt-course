@@ -23,7 +23,7 @@ ChartView::ChartView(QWidget *parent) :
     QString data;
     QStringList coordinateList;
 
-    plot_data.setFileName("/home/helen/Документы/C-C-Qt-course/24_tochechnaya_diagramma/dataset.csv");
+    plot_data.setFileName("/Users/helenkapatsa/Repositories/C-C-Qt-course/24_tochechnaya_diagramma/dataset.csv");
     plot_data.open(QIODevice::ReadOnly | QIODevice::Text);
 
     QTextStream ts(&plot_data);

@@ -1,179 +1,142 @@
-#include <iostream>
-#include <string.h>
+#include <stdio.h>
 #include <unistd.h>
-#define MAX 100
+#include <string.h>
+#include <stdbool.h>
+#include <time.h>
+#include <stdlib.h>
 
-using namespace std;
+#define MAXSIZE 5 
 
-int top;
-struct stack_s{
-    public:
-    string name;
-    int time;
-    int priority;
+struct stack {
+    int stk[MAXSIZE];
+    int top; 
+    int time[MAXSIZE];
 };
-stack_s stack[MAX];
 
-void initstack() { // Инициализация стека
-    top=-1;
-}
+typedef struct stack STACK;
+STACK s;
 
-// Набор символов для автогенерации 
-static const char alphanum[] = 
-    "0123456789"
-    "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-    "abcdefghijklmnopqrstuvwxyz";
-
-// Случайная длина
-int stringLength = sizeof(alphanum); 
-
-// Генерация случайной части имени
-char genRandom() { 
-    return alphanum[rand() % stringLength];
-}
-
-// Проверка опустошенности стека
-int isEmpty() { 
-    if(top==-1)
-        return 1;
-    else
-        return 0;
-}
-
-// Проверка наполненности стека
-int isFull() { 
-    if(top==MAX-1)
-        return 1;
-    else
-        return 0;
-}
-
-void autoPush(
-    string name, 
-    int time, 
-    int priority) {
-        if(isFull()) {
-            cout << "Стек полон" << endl;
-            return;
-        }
-    ++top;
-    
-    stack[top].name = name;
-    stack[top].time = time;
-    stack[top].priority = priority;
-    cout << "Задача \"" << name << 
-    "\" добавлена.\n" << endl;
-}
-
-// Отображение текущего состояния стека
-void peek() { 
-    int i;
-    if(isEmpty()) {
-        cout << "Стек пуст" << endl;
-        return;
-    }
-    
-    for(i = top; i>=0; i--) {
-        cout << 
-        stack[i].name<< ", " << 
-        stack[i].time << ", " << 
-        stack[i].priority << endl;
-    }
-}
-
-void push(
-    string name, 
-    int time, 
-    int priority) {
-        if(isFull()) {
-            cout << "Стек полон" << endl;
-            return;
-        }
-    ++top;
-    stack[top].name = name;
-    stack[top].time = time;
-    stack[top].priority = priority;
-    cout << "Задача \"" << name << 
-    "\" добавлена.\n" << endl;
-}
-
-void pop() { // Удаление задачи
-    string temp;
-    if(isEmpty()) {
-        cout << "Стек пуст" << endl;
-        return;
-    }
-    
-    temp = stack[top].name;
-    cout << "Ожидание удаления задачи..." 
-    << endl;
-    sleep(stack[top].time);
-    top--;
-    cout << "Задача \"" << temp << 
-    "\" удалена.\n" << endl;
-}
+void push(void);
+int pop_stack(void);
+int pop_queue(void);
+bool is_auto ();
+void display(void);
 
 int main() {
-    string name;
-    int time;
-    int priority;
-    
-    initstack();
-    int a;
-    
-    do {
-        cout << "1. Добавить\n" << 
-        "2. Удалить\n" << 
-        "3. Отобразить\n" << 
-        "4. Сгенерировать задачу\n" << 
-        "5. Выйти из программы.\n" << 
-        "Выберите действие: ";
-        cin >> a;
-        cout << endl;
-        switch(a) {
+    int choice;
+    s.top = 0;
+    printf("Добро пожаловать в менеджер задач! Выберите пункт меню: \n");
+    while (choice != 5) {
+        printf("1: Добавить задачу \n");
+        printf("2: Выполнить задачи в режиме стека \n");
+        printf("3: Выполнить задачи в режиме очереди \n");
+        printf("4: Показать список задач \n");
+        printf("5: Выход \n");
+        printf("\n");
+        printf("Введите вариант: ");
+        scanf("%d", &choice);
+        printf("\n");
+        switch (choice) {
             case 1:
-                cout << "\nВведите имя: ";
-                cin >> name;
-                cout << 
-                "Введите " << 
-                " время: ";  
-                cin >> time;
-                cout << 
-                "приоритет от 1 до 3: ";
-                cin >> priority;
-                push(
-                    name, 
-                    time, 
-                    priority);
+                push();
                 break;
             case 2:
-                pop();
+                pop_stack();
                 break;
             case 3:
-                peek();
-                cout << "Текущих задач: " 
-                << top+1 << endl;
+                pop_queue();
                 break;
             case 4:
-                // Генерация имени
-                for(
-                    unsigned int i = 0; 
-                    i < 12; 
-                    ++i) { 
-                    name += genRandom();
-                }
-                time = rand() % 10;
-                priority = rand() % 9;
-                autoPush(
-                    name, 
-                    time, 
-                    priority);
+                display();
                 break;
-            default:
-                cout << "Ваш выбор:\n";
         }
-    } while (a != '5');
-    cout << "Выход из программы..." << 
-    endl;
+    }
+}
+
+void push() {
+    int cnt = 0;
+    srand((unsigned int) time(NULL));
+    if (is_auto()) {
+        printf("Сколько задач вы хотите добавить?(от 1 до %d задач)\n",MAXSIZE);
+        scanf("%d", &cnt);
+        if ((cnt > MAXSIZE) || (cnt <= 0)) {
+            printf("Ошибка ввода количества задач.\n");
+            return;
+        }
+        for (int i = 1; i <= cnt; i++) {
+            s.top = s.top + 1;
+            s.time[s.top] = 0 + rand()%4;
+            s.stk[s.top] = i;
+        }
+    }
+    else {
+        int num;
+        if (s.top == (MAXSIZE)) {
+            printf("Список задач переполнен!\n");
+            return;
+        } else {
+            printf("Введите имя задачи (Только числа!)\n");
+            scanf("%d", &num);
+            s.top = s.top + 1;
+            int tmp;
+            printf("Введите время её выполнения:\n");
+            scanf("%d", &tmp);
+            s.time[s.top] = tmp;
+            s.stk[s.top] = num;
+        }
+        return;
+    }
+}
+
+int pop_queue() {
+    if (s.top == 0) {
+        printf("Список задач пуст!\n");
+        return (s.top);
+    } else {
+        printf("Выбран алгоритм очереди\n");
+        for (int i = 1; i <= s.top; i++) {
+            printf("Выбрана задача № %d\n", s.stk[i]);
+            printf("Задача будет длится %d секунд. Подождите...\n", s.time[i]);
+            sleep(s.time[i]);
+        }
+        s.top = 0;
+    }
     return 0;
+}
+
+int pop_stack() {
+    if (s.top == 0) {
+        printf("Список задач пуст!\n");
+        return (s.top);
+    } else {
+        printf("Выбран алгоритм cтека\n");
+        for (int i = s.top; i > 0; i--) {
+            printf("Выбрана задача № %d\n", s.stk[i]);
+            printf("Задача будет длится %d секунд. Подождите...\n", s.time[i]);
+            sleep(s.time[i]);
+        }
+        s.top = 0;
+    }
+    return 0;
+}
+
+void display() {
+    if (s.top == 0) {
+        printf("Список задач пуст!\n");
+        return;
+    } else {
+        printf("\n Перечень задач: \n");
+        for (int i = 1; i <= s.top; i++) {
+            printf("Задача %d, время выполнения - %d\n", s.stk[i], s.time[i]);
+        }
+    }
+    printf("\n");
+}
+
+bool is_auto() {
+    int ch=0;
+    printf("0 - ввести данные самостоятельно\n");
+    printf("1 - сгенерировать задачи автоматически\n");
+    scanf("%d", &ch);
+    return ch;
 }
