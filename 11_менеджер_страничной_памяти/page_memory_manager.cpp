@@ -1,46 +1,59 @@
 #include <iostream>
+#include <vector>
+
 int max_size = 10000;
 int *heap = new int[max_size];
-int choice, page_size, page_size_2;
+std::vector<int> memory;
 
 void merge_pages() {
-    
+    int size, size2;
+    std::cout << "Укажите размер первой страницы: ";
+    scanf("%d", &size);
+    std::cout << "Укажите размер второй страницы: ";
+    scanf("%d", &size2);
+    memory.push_back(size+size2);
+    memory.erase(std::remove(memory.begin(), memory.end(), size), memory.end());
+    memory.erase(std::remove(memory.begin(), memory.end(), size2), memory.end());
+    for (auto &i : memory) {
+        std::cout << &i << ": " << i << std::endl;
+    }
 }
 
 void remove_page() {
-
+    int size;
+    std::cout << "Укажите размер удаляемой страницы: ";
+    scanf("%d", &size);
+    memory.erase(std::remove(memory.begin(), memory.end(), size), memory.end());
+    for (auto &i : memory) {
+        std::cout << &i << ": " << i << std::endl;
+    }
 }
 
 int main() {
     int total_memory = 0;
     int i = 0;
-	std::cout << "Страницы автосгенерированы:" << std::endl;
+    std::cout << "Страницы автосгенерированы:" << std::endl;
     while(total_memory <= max_size) {
-		*(heap+i) = rand()% 2000+1;
+        *(heap+i) = rand()% 2000+1;
+        memory.push_back(heap[i]);
         total_memory += *(heap+i);
-        std::cout << &heap[i] << ": " << *(heap + i) << std::endl; 
+        std::cout << &heap[i] << ": " << *(heap + i) << std::endl;
         i++;
-	}
-
-    // std::cout << "\nВведите:" << std::endl;
-    // std::cout << "1, если хотите удалить страницу" << std::endl;
-    // std::cout << "2, если хотите объединить страницы" << std::endl;
-    // std::cout << "3, чтобы выйти. \nВыберите действие: ";
-    // scanf("%d", choice);
-    while (choice != 3) {
-        std::cin >> choice;
-        switch (choice) {
-            case 1:
-                std::cout << "Удаление страницы" << std::endl;
-                break;
-            case 2:
-                std::cout << "Объединение страниц" << std::endl;
-                break;
-            default:
-                std::cout << "Выберите действительный пункт меню:" << std::endl; 
-        }
     }
-
-    delete heap;
-	return 0;
+    
+    int choice;
+    std::cout << "\n1. Удалить страницу" << "\n2. Объединить страницы" << std::endl;
+    std::cout << "Выберите пункт меню: ";
+    scanf("%d", &choice);
+    switch(choice) {
+        case 1:
+            remove_page();
+            break;
+        case 2:
+            merge_pages();
+            break;
+        default:
+            std::cout << "Укажите действительный пункт меню: " << std::endl;
+    }
+    return 0;
 }
