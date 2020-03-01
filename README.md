@@ -1,4 +1,4 @@
-Аудиозаписи лекций доступны по [ссылке](https://cloud.mail.ru/public/3nZm/3XHt67D9m)
+Аудиозаписи лекций доступны по [ссылке](https://cloud.mail.ru/public/7toV/4jNa8kgFf)
 
 Студент: Капаца Елена, [helen@kapatsa.com](mailto:helen@kapatsa.com)
 
